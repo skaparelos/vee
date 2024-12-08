@@ -15,4 +15,27 @@ export class GrantsService {
       where: { id },
     });
   }
+
+  async searchGrants(params: {
+    query?: string;
+    minAmount?: number;
+    maxAmount?: number;
+    deadline?: Date;
+  }): Promise<Grant[]> {
+    const { query, minAmount, maxAmount, deadline } = params;
+
+    return this.prisma.grant.findMany({
+      where: {
+        AND: [
+          query ? { name: { contains: query } } : {},
+          minAmount ? { amount: { gte: minAmount } } : {},
+          maxAmount ? { amount: { lte: maxAmount } } : {},
+          deadline ? { deadline: { lte: deadline } } : {},
+        ],
+      },
+      orderBy: {
+        deadline: 'asc',
+      },
+    });
+  }
 }

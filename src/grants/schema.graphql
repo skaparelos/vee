@@ -15,4 +15,10 @@ scalar DateTime
 type Query {
   grants: [Grant!]!
   grant(id: ID!): Grant
+  searchGrants(
+    query: String
+    minAmount: Float
+    maxAmount: Float
+    deadline: DateTime
+  ): [Grant!]!
 }

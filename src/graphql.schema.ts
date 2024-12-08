@@ -27,6 +27,8 @@ export abstract class IQuery {
 
     abstract grant(id: string): Nullable<Grant> | Promise<Nullable<Grant>>;
 
+    abstract searchGrants(query?: Nullable<string>, minAmount?: Nullable<number>, maxAmount?: Nullable<number>, deadline?: Nullable<DateTime>): Grant[] | Promise<Grant[]>;
+
     abstract users(): User[] | Promise<User[]>;
 
     abstract user(id: string): Nullable<User> | Promise<Nullable<User>>;

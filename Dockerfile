@@ -13,6 +13,8 @@ RUN npm install
 # Copy the rest of the application files
 COPY . .
 
+RUN npm run generate:typings
+
 # Build the NestJS application
 RUN npm run build
 
