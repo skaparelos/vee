@@ -1,4 +1,4 @@
-### Prisma GraphQL schema first sample
+### Prisma GraphQL schema first
 
 This sample project uses sqlite as the relational database. To use a different database, check the [Prisma docs](https://www.prisma.io/docs/getting-started).
 
@@ -8,7 +8,8 @@ This sample project uses sqlite as the relational database. To use a different d
 2. Generate TypeScript type definitions for the GraphQL schema: `npm run generate:typings`
 3. Create sqlite database and create tables: `npx prisma db push`
 4. Seed db and run migration `npx prisma migrate dev --name init`
-4. Start server: `npm run start:dev`
+5. Start server: `npm run start:dev`
+6. Run e2e tests: `npm run test:e2e`
 
 ### Graphql Playground
 
