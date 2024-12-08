@@ -43,9 +43,9 @@ export const grantApplications = [
     id: "ga_id_4",
     userId: "usr_id_3",
     grantId: "grt_id_1",
-    userStatus: UserStatus.INTERESTED,
-    applicationStatus: ApplicationStatus.REJECTED,
-    feedback: "Thank you for applying. Unfortunately...",
+    userStatus: UserStatus.NULL,
+    applicationStatus: ApplicationStatus.NULL,
+    feedback: null,
     createdAt: new Date("2024-02-10"),
   },
   {
