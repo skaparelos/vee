@@ -1,0 +1,18 @@
+type Grant {
+  id: ID!
+  name: String!
+  foundationName: String!
+  amount: Float!
+  deadline: DateTime
+  location: String
+  gettingStarted: String
+  areaOfFunding: String
+}
+
+# Custom scalar for DateTime
+scalar DateTime
+
+type Query {
+  grants: [Grant!]!
+  grant(id: ID!): Grant
+}

@@ -8,41 +8,53 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export class NewPost {
-    title: string;
-    text: string;
-}
-
-export class UpdatePost {
+export class GrantApplication {
     id: string;
-    title?: Nullable<string>;
-    text?: Nullable<string>;
-    isPublished?: Nullable<boolean>;
-}
-
-export class Post {
-    id: string;
-    title: string;
-    text: string;
-    isPublished: boolean;
+    userId: string;
+    user: User;
+    grantId: string;
+    grant: Grant;
+    userStatus?: Nullable<number>;
+    applicationStatus?: Nullable<number>;
+    feedback?: Nullable<string>;
+    createdAt: DateTime;
 }
 
 export abstract class IQuery {
-    abstract posts(): Post[] | Promise<Post[]>;
+    abstract grantOpportunities(userId: string, status?: Nullable<number>): GrantApplication[] | Promise<GrantApplication[]>;
 
-    abstract post(id: string): Nullable<Post> | Promise<Nullable<Post>>;
+    abstract grants(): Grant[] | Promise<Grant[]>;
+
+    abstract grant(id: string): Nullable<Grant> | Promise<Nullable<Grant>>;
+
+    abstract users(): User[] | Promise<User[]>;
+
+    abstract user(id: string): Nullable<User> | Promise<Nullable<User>>;
 }
 
 export abstract class IMutation {
-    abstract createPost(input: NewPost): Post | Promise<Post>;
+    abstract createGrantApplication(userId: string, grantId: string): GrantApplication | Promise<GrantApplication>;
 
-    abstract updatePost(input: UpdatePost): Nullable<Post> | Promise<Nullable<Post>>;
-
-    abstract deletePost(id: string): Nullable<Post> | Promise<Nullable<Post>>;
+    abstract updateGrantApplication(id: string, userStatus?: Nullable<number>, applicationStatus?: Nullable<number>, feedback?: Nullable<string>): GrantApplication | Promise<GrantApplication>;
 }
 
-export abstract class ISubscription {
-    abstract postCreated(): Nullable<Post> | Promise<Nullable<Post>>;
+export class Grant {
+    id: string;
+    name: string;
+    foundationName: string;
+    amount: number;
+    deadline?: Nullable<DateTime>;
+    location?: Nullable<string>;
+    gettingStarted?: Nullable<string>;
+    areaOfFunding?: Nullable<string>;
 }
 
+export class User {
+    id: string;
+    email: string;
+    name?: Nullable<string>;
+    userGrants?: Nullable<Nullable<GrantApplication>[]>;
+}
+
+export type DateTime = any;
 type Nullable<T> = T | null;

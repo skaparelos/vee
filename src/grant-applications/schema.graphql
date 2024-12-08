@@ -1,0 +1,37 @@
+type GrantApplication {
+  id: ID!
+  userId: ID!
+  user: User!
+  grantId: ID!
+  grant: Grant!
+  userStatus: Int
+  applicationStatus: Int
+  feedback: String
+  createdAt: DateTime!
+}
+
+scalar DateTime
+
+type Query {
+  # Get grant opportunities filtered by status
+  grantOpportunities(
+    userId: ID!
+    status: Int
+  ): [GrantApplication!]!
+}
+
+type Mutation {
+  # Create initial grant application (PENDING userStatus)
+  createGrantApplication(
+    userId: ID!
+    grantId: ID!
+  ): GrantApplication!
+  
+  # Update any grant application fields
+  updateGrantApplication(
+    id: ID!
+    userStatus: Int
+    applicationStatus: Int
+    feedback: String
+  ): GrantApplication!
+}

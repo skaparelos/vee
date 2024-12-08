@@ -10,9 +10,37 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Post {
-  id          String  @id @default(uuid())
-  title       String
-  text        String
-  isPublished Boolean @default(false)
+// Users of the application
+model User {
+  id         String        @id @default(cuid())
+  email      String        @unique
+  name       String
+  userGrants GrantApplication[]
+}
+
+// Grant opportunities (shared among all users)
+model Grant {
+  id             String       @id @default(cuid())
+  name           String
+  foundationName String
+  amount         Float
+  deadline       DateTime?
+  location       String?
+  gettingStarted String?       @default("Apply Online")
+  areaOfFunding  String?
+  userGrants     GrantApplication[]
+}
+
+// Grant applications by users
+model GrantApplication {
+  id                String            @id @default(cuid())
+  userId            String
+  user              User              @relation(fields: [userId], references: [id])
+  grantId           String
+  grant             Grant             @relation(fields: [grantId], references: [id])
+  userStatus        Int               @default(0)  // 0=NULL, 1=INTERESTED, 2=NOT_INTERESTED
+  applicationStatus Int               @default(0)  // 0=NULL, 1=APPLIED, 2=ACCEPTED, 3=REJECTED
+  feedback          String?
+  createdAt       DateTime          @default(now())
+  @@unique([userId, grantId])
 }
